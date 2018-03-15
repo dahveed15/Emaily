@@ -3,7 +3,7 @@ const app = express();
 
 //creating a new route handler
 app.get('/', (req, res) => {
-  res.send({hi: 'there'});
+  res.send({hi: 'buddy'});
 });
 
 //process.env.PORT is for heroku, 5000 is the local server
