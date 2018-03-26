@@ -1,36 +1,9 @@
 const express = require('express');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const keys = require('./config/keys');
+require('./services/passport');
 
 const app = express();
 
-//passport, use GoogleStrategy (understand that users can authenticate themselves in our app)
-//callbackURL is the route that the user will be sent to after they grant permission
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback'
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log('access token', accessToken);
-      console.log('refresh token', refreshToken);
-      console.log('profile', profile);
-    }
-  )
-);
-
-
-//so when a user clicks login, they'll be sent to this route, and the authentication process will begin for GoogleOAuth (as seen from above)
-app.get('/auth/google', passport.authenticate('google', {
-  //scope means give me access to the user's profile info and email
-  scope: ['profile', 'email']
-}));
-
-//turn the code that you get back after the "choose an email part" in the url into an actual profile
-app.get('/auth/google/callback', passport.authenticate('google'));
+require('./routes/authRoutes')(app);
 
 
 
