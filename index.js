@@ -1,6 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+
+//load up the user model
+require('./models/User');
+
 require('./services/passport');
+
 
 mongoose.connect('mongodb://localhost/emaily-dev')
 .then(() => console.log('MongoDB Connected...'))
