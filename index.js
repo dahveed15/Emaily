@@ -1,5 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 require('./services/passport');
+
+mongoose.connect('mongodb://localhost/emaily-dev')
+.then(() => console.log('MongoDB Connected...'))
+.catch(err => console.log(err));
 
 const app = express();
 
